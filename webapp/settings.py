@@ -30,7 +30,7 @@ ALLOWED_HOSTS = ["learngerman-ai.onrender.com"]#debug=True的时候，可以为�
 CSRF_TRUSTED_ORIGINS = ["https://learngerman-ai.onrender.com/","https://learngerman-ai.onrender.com/chat"]#对于本项目来说，一定要加上https://learngerman-ai.onrender.com/chat/这个路径。因为fetch函数映射到该路径。否则返回的就不是token而是一个html
 
 
-API_KEYS = os.environ.get('DATABASE_URL')
+API_KEYS = os.environ.get('MY_API_KEYS')
 if API_KEYS:
     API_KEYS = API_KEYS.split(',')
 
