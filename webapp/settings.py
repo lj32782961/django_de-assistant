@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-9i86l*nl5_t-ljr*7^1e4yqb!om@ds9_gxf)z$@=xcaar4%jqa'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["learngerman-ai.onrender.com", ".learngerman-ai.onrender.com", "127.0.0.1"]
 CSRF_TRUSTED_ORIGINS = ["https://learngerman-ai.onrender.com/","https://learngerman-ai.onrender.com/chat"]#对于本项目来说，一定要加上https://learngerman-ai.onrender.com/chat/这个路径。因为fetch函数映射到该路径。否则返回的就不是token而是一个html
