@@ -1,0 +1,234 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    background-color: #f9f9f9;
+}
+
+#header {
+    width: 90%;
+    max-width: 1000px;
+    background-color: #007bff;
+    color: white;
+    padding: 7.5px;
+    text-align: center;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#layoutContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 水平居中 */
+    width: 90%;
+    max-width: 1000px; /* 最大宽度 */
+    margin-top: 0x; /* 为 header 预留空间 */
+    padding-top: 5px; /* 增加顶部间距 */
+  }
+
+  /* 中间聊天区 */
+  #chatSection {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 水平居中 */
+    gap: 5px;
+  }
+
+  #chatContainer {
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    padding: 5px;
+  }
+
+  #chatMessages {
+    overflow-y: auto;
+    height: 400px;
+    margin-bottom: 0px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 0px;
+    background-color: #fefefe;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .message {
+    position: relative;
+    margin: 5px;
+    padding: 5px;
+    border-radius: 15px;
+    max-width: 80%;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+
+  .message.user {
+    background-color: #e3f2fd;
+    margin-left: auto;
+  }
+
+  .message.ai {
+    background-color: #f5f5f5;
+    margin-right: auto;
+  }
+
+  /* 命令按钮网格布局 */
+  #commandButtons {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
+    padding: 5px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    margin-bottom: 0;
+    width: 100%;
+  }
+
+  .command-button {
+    width: 100%;
+    padding: 7.5px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 14px;
+    text-align: center;
+  }
+
+  .command-button.active {
+    background-color: #28a745;
+    /*transform: translateX(5px);*/
+  }
+
+  /* 输入区域样式 */
+  .input-area {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+  }
+
+  #userInput {
+    height: 75px;
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: none; /* 禁止调整大小 */
+    /*overflow: hidden; /* 隐藏滚动条 */
+    padding: 10px;
+    box-sizing: border-box;
+  }
+
+
+
+  /* 播放按钮样式 */
+  .play-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-left: 5px;
+    font-size: 12px;
+  }
+
+  .play-button.stop {
+    background-color: #dc3545;
+  }
+  
+  #sendButton {
+   width: 120px; /* 固定宽度 */
+   height: 40px; /* 按钮高度 */
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+  }
+  
+  /* 滚动按钮样式 */
+  .scroll-button {
+    padding: 10px;
+    font-size: 16px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    width: 100px; /* 按钮宽度 */
+    height: 40px; /* 按钮高度 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    
+  }
+
+  /* 左侧滚动按钮 */
+  .scroll-button.left {
+    order: 1; /* 左侧 */
+  }
+
+  /* 右侧滚动按钮 */
+  .scroll-button.right {
+    order: 3; /* 右侧 */
+  }
+
+  /* 发送按钮 */
+  #sendButton {
+    order: 2; /* 中间 */
+  }
+
+/* 添加历史面板样式 */
+.history-panel {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 250px;
+    height: 100%;
+    background: white;
+    border-right: 1px solid #ddd;
+    padding: 20px;
+    transform: translateX(-250px);
+    transition: transform 0.3s ease;
+    z-index: 1000;
+}
+
+.history-panel.active {
+    transform: translateX(0);
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+    .history-panel {
+        width: 100%;
+        transform: translateX(-100%);
+    }
+    
+    #layoutContainer {
+        margin-left: 0;
+    }
+    
+    .command-button {
+        font-size: 14px;
+        padding: 5px;
+    }
+} 
+
