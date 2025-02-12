@@ -33,20 +33,7 @@ CSRF_TRUSTED_ORIGINS = ["https://learngerman-ai.onrender.com/","https://learnger
 API_KEYS = os.environ.get('MY_API_KEYS')
 if API_KEYS:
     API_KEYS = API_KEYS.split(',')
-API_KEYS= ["AIzaSyBpbsjq9sK5WFuEqz-S_NdY1WQg5ZQW0eI",
-  "AIzaSyAOIfwg27usWn2qjaj-K8oADMIYj0dms5c",
-  "AIzaSyCc7yZKCPKFatr0fs8qy0BXaloenRgmmuU",
-  "AIzaSyA4ImThoYk3pFL4Ot8tIoHzS908Dy6lSd4",
-  "AIzaSyAMZqS80v7ZiTXbu7qwhDF-jL9K0nKWwzo",
-  "AIzaSyBr2hN90g0gayXoDosNUe4VEsVsgrIjq1k",
-  "AIzaSyCU23ntu4QUgFboJJXjPBIsmGGrLl0wl_Y",
-  "AIzaSyBvPk84wMxylQNeu0q5HnPQIahHfRrU_xI",
-  "AIzaSyCzIX9zl3zS8p3yycYgHTr9KVoZhgMRVdg",
-  "AIzaSyDZylrWAdqn_an8aJfAa6pgL0e6QusBP0E",
-  "AIzaSyD7gCQleXmGD7h7mUeDTc8KqtKKu6zJhBY",
-  "AIzaSyAukWJ4hUDmwUevThOI0PoIisNe6qkDktA",
-  "AIzaSyDR17OKOA-Ed-bkQ29_0zaE-VHBvCnCDkI",
-  "AIzaSyAi8W6koSJe4XpUTE8g-HNiRmN5BbGR5RU"]
+
 
 
 # Application definition
