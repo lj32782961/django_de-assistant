@@ -26,12 +26,13 @@ SECRET_KEY = 'django-insecure-9i86l*nl5_t-ljr*7^1e4yqb!om@ds9_gxf)z$@=xcaar4%jqa
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
-CSRF_TRUSTED_ORIGINS = ["https://"]#"https://1792-2001-7c0-2049-1d4-906b-ba39-eb58-c563.ngrok-free.app"
+ALLOWED_HOSTS = ["learngerman-ai.onrender.com",".learngerman-ai.onrender.com","127.0.0.1"]
+CSRF_TRUSTED_ORIGINS = ["https://learngerman-ai.onrender.com/"]#"https://1792-2001-7c0-2049-1d4-906b-ba39-eb58-c563.ngrok-free.app"
 
 
 API_KEYS = os.environ.get('MY_API_KEYS')
-
+if API_KEYS:
+    API_KEYS = API_KEYS.split(',')
 
 # Application definition
 
