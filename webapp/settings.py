@@ -26,27 +26,13 @@ SECRET_KEY = 'django-insecure-9i86l*nl5_t-ljr*7^1e4yqb!om@ds9_gxf)z$@=xcaar4%jqa
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["learngerman-ai.onrender.com", ".learngerman-ai.onrender.com", "127.0.0.1"]
+ALLOWED_HOSTS = ["learngerman-ai.onrender.com"]#debug=True的时候，可以为空。为false的时候，开发环境下会返回错误
 CSRF_TRUSTED_ORIGINS = ["https://learngerman-ai.onrender.com/","https://learngerman-ai.onrender.com/chat"]#对于本项目来说，一定要加上https://learngerman-ai.onrender.com/chat/这个路径。因为fetch函数映射到该路径。否则返回的就不是token而是一个html
 
 
 API_KEYS = os.environ.get('MY_API_KEYS')
 if API_KEYS:
     API_KEYS = API_KEYS.split(',')
-API_KEYS= ["AIzaSyBpbsjq9sK5WFuEqz-S_NdY1WQg5ZQW0eI",
-  "AIzaSyAOIfwg27usWn2qjaj-K8oADMIYj0dms5c",
-  "AIzaSyCc7yZKCPKFatr0fs8qy0BXaloenRgmmuU",
-  "AIzaSyA4ImThoYk3pFL4Ot8tIoHzS908Dy6lSd4",
-  "AIzaSyAMZqS80v7ZiTXbu7qwhDF-jL9K0nKWwzo",
-  "AIzaSyBr2hN90g0gayXoDosNUe4VEsVsgrIjq1k",
-  "AIzaSyCU23ntu4QUgFboJJXjPBIsmGGrLl0wl_Y",
-  "AIzaSyBvPk84wMxylQNeu0q5HnPQIahHfRrU_xI",
-  "AIzaSyCzIX9zl3zS8p3yycYgHTr9KVoZhgMRVdg",
-  "AIzaSyDZylrWAdqn_an8aJfAa6pgL0e6QusBP0E",
-  "AIzaSyD7gCQleXmGD7h7mUeDTc8KqtKKu6zJhBY",
-  "AIzaSyAukWJ4hUDmwUevThOI0PoIisNe6qkDktA",
-  "AIzaSyDR17OKOA-Ed-bkQ29_0zaE-VHBvCnCDkI",
-  "AIzaSyAi8W6koSJe4XpUTE8g-HNiRmN5BbGR5RU"]
 
 # Application definition
 
