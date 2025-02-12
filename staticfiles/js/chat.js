@@ -183,6 +183,7 @@ async function sendMessage(keywords, fullCommand) {
     const tmpMessage = updateChat('ai', '思考中，请等待...');
 
     const chatToken = document.getElementById('chat_token').value; 
+  
             
     const csrftoken = document.querySelector('[name="csrfmiddlewaretoken"]').value; // 正确的querySelector
     try {
