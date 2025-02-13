@@ -183,6 +183,7 @@ async function sendMessage(keywords, fullCommand) {
     const tmpMessage = updateChat('ai', '思考中，请等待...');
 
     const chatToken = document.getElementById('chat_token').value; 
+  
             
     const csrftoken = document.querySelector('[name="csrfmiddlewaretoken"]').value; // 正确的querySelector
     try {
@@ -227,53 +228,137 @@ function updateChat(role, text) {
     message.classList.add("message", role);
     
     if (role === 'ai') {
-      // 解析文本中的德语内容
-      const html = marked.parse(text);
-      message.innerHTML = html;
-      
-      // 为德语文本添加播放按钮
-      const germanSentences = message.querySelectorAll('p, li');
-      germanSentences.forEach(element => {
-        const text = element.textContent;
-        if (text.match(/[äöüßÄÖÜ]|[a-zA-Z]/)) { // 简单判断是否包含德语字符
-          const playButton = document.createElement('button');
-          playButton.className = 'play-button';
-          playButton.innerHTML = '<i class="fas fa-volume-up"></i>';
-          let utterance = null;
+      text = text + "\n\n**本站不保存数据，请及时导出！**";//添加提示信息
+      const html = marked.parse(text);//转换信息格式
+      message.innerHTML = html;//插入信息
 
-          playButton.addEventListener('click', () => {
-            if (speechSynthesis.speaking && !speechSynthesis.paused) {
-              speechSynthesis.cancel();
-              playButton.classList.remove('stop');
-              playButton.innerHTML = '<i class="fas fa-volume-up"></i>';
-            } else {
-              utterance = new SpeechSynthesisUtterance(text);
-              utterance.lang = 'de-DE';
-              utterance.onend = () => {
-                playButton.classList.remove('stop');
-                playButton.innerHTML = '<i class="fas fa-volume-up"></i>';
-              };
-              speechSynthesis.speak(utterance);
-              playButton.classList.add('stop');
-              playButton.innerHTML = '<i class="fas fa-stop"></i>';
-            }
-          });
-          //element.appendChild(playButton); 暂时不添加语音播放按钮
-        }
-      });
+      addPlayButtons(message);//添加语音播放按钮
+      addExportButton(message, text); // 添加导出按钮
+      
     } else {
-      //message.textContent = text;
-      const html = marked.parse(text);
+      //message.textContent = text;//普通文本
+      const html = marked.parse(text);//转换成markdown格式文本
       message.innerHTML = html;
+
+      addCopyButton(message, text); // 添加复制按钮
     }
 
     chatMessages.appendChild(message);
-    chatMessages.scrollTop = chatMessages.scrollHeight;
+    chatMessages.scrollTop = chatMessages.scrollHeight;//自动滚到chatMessages的最下面
     return message;//返回message元素
   }
 
+function addExportButton(message, text) {
+  const exportButton = createButton("导出", "#28a745", exportFile); // 创建导出按钮
+  exportButton.addEventListener("click", () => exportFile(text)); // 绑定事件
+  message.appendChild(exportButton);// 添加按钮到消息块中
+}
+
+function addCopyButton(message, text) {
+  const copyButton = createButton("复制", "#007bff", copyText); // 创建复制按钮
+  copyButton.addEventListener("click", () => copyText(text)); // 绑定事件
+  message.appendChild(copyButton);// 添加按钮到消息块中
+}
 
 
+function createButton(text, backgroundColor, callback) {
+const button = document.createElement("button");
+button.textContent = text;
+button.style.marginLeft = "10px";
+button.style.padding = "5px 10px";
+button.style.fontSize = "12px";
+button.style.cursor = "pointer";
+button.style.backgroundColor = backgroundColor;
+button.style.color = "white";
+button.style.border = "none";
+button.style.borderRadius = "5px";
+return button;
+}
+
+async function exportFile(text) {
+  const defaultName = `AI_Response_${Date.now()}.txt`;// 默认文件名
+  if (window.showSaveFilePicker) {
+      try {
+          // 配置文件选择对话框
+          const options = {
+              suggestedName: defaultName,
+              types: [{ description: "Text Files", accept: { "text/plain": [".txt"] } }],
+          };
+          // 调用文件选择器
+          const handle = await window.showSaveFilePicker(options);
+          const writable = await handle.createWritable();
+          // 写入内容到文件并关闭
+          await writable.write(text);
+          await writable.close();
+          console.log("文件已成功保存！");
+      } catch (error) {
+          console.error("用户取消或保存失败：", error);
+      }
+  } else {
+      // 浏览器不支持 showSaveFilePicker，使用 prompt 获取文件名
+      const userFileName = prompt("请输入导出文件名（无需扩展名）", defaultName.replace(".txt", ""));
+      const fileName = userFileName ? `${userFileName}.txt` : defaultName;
+      // 调用 Blob 下载方式
+      exportToBlob(fileName, text);
+  }
+}
+
+function exportToBlob(filename, content) {
+  const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = filename;
+  // 模拟点击下载
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  console.log("文件已通过 Blob 保存！");
+}
+
+function copyText(text) {
+  navigator.clipboard.writeText(text)// 使用navigator.clipboard API复制文本
+      .then(() => {
+          console.log("文本已复制到剪贴板");
+          userInput.value = text; //  点击按钮后文本自动填充到输入框
+      })
+      .catch(err => {
+          console.error("复制到剪贴板失败: ", err);
+          //alert("复制到剪贴板失败！");
+      });
+}
+
+
+function addPlayButtons(message){
+    const germanSentences = message.querySelectorAll('p, li');
+    germanSentences.forEach(element => {
+        const text = element.textContent.trim(); // trim() 去除多余空格
+        if (text.match(/[äöüßÄÖÜ]|[a-zA-Z]/)) { // 简单判断是否包含德语字符
+            const playButton = document.createElement('button');
+            playButton.className = 'play-button';
+            playButton.innerHTML = '<i class="fas fa-volume-up"></i>';
+            let utterance = null;
+
+            playButton.addEventListener('click', () => {
+                if (speechSynthesis.speaking && !speechSynthesis.paused) {
+                    speechSynthesis.cancel();
+                    playButton.classList.remove('stop');
+                    playButton.innerHTML = '<i class="fas fa-volume-up"></i>';
+                } else {
+                    utterance = new SpeechSynthesisUtterance(text);
+                    utterance.lang = 'de-DE';
+                    utterance.onend = () => {
+                        playButton.classList.remove('stop');
+                        playButton.innerHTML = '<i class="fas fa-volume-up"></i>';
+                    };
+                    speechSynthesis.speak(utterance);
+                    playButton.classList.add('stop');
+                    playButton.innerHTML = '<i class="fas fa-stop"></i>';
+                }
+            });
+            //element.appendChild(playButton);暂时不添加语音播放按钮
+        }
+    });
+  }
 
 // 初始化
 document.addEventListener('DOMContentLoaded', () => {
