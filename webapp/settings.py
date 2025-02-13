@@ -12,8 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
-from dotenv import load_dotenv
-load_dotenv()
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -28,7 +27,7 @@ SECRET_KEY = 'django-insecure-9i86l*nl5_t-ljr*7^1e4yqb!om@ds9_gxf)z$@=xcaar4%jqa
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["learngerman-ai.onrender.com","127.0.0.1"]#debug=True的时候，可以为空。为false的时候，开发环境下会返回错误。也可以添加“127.0.0.1”
+ALLOWED_HOSTS = ["learngerman-ai.onrender.com"]#debug=True的时候，可以为空。为false的时候，开发环境下会返回错误。也可以添加“127.0.0.1”
 CSRF_TRUSTED_ORIGINS = ["https://learngerman-ai.onrender.com/","https://learngerman-ai.onrender.com/chat"]#对于本项目来说，一定要加上https://learngerman-ai.onrender.com/chat/这个路径。因为fetch函数映射到该路径。否则返回的就不是token而是一个html
 
 
@@ -52,6 +51,8 @@ API_KEYS = [MY_API_KEY1,MY_API_KEY2,MY_API_KEY3,MY_API_KEY4,
             MY_API_KEY9,MY_API_KEY10,MY_API_KEY11,MY_API_KEY12,
             MY_API_KEY13,MY_API_KEY14]
 
+#from dotenv import load_dotenv
+#load_dotenv()#开发环境下启用
 API_KEYS = os.environ.get('MY_API_KEYS','').split(',')
 
 
