@@ -31,26 +31,6 @@ ALLOWED_HOSTS = ["learngerman-ai.onrender.com"]#debug=True的时候，可以为�
 CSRF_TRUSTED_ORIGINS = ["https://learngerman-ai.onrender.com/","https://learngerman-ai.onrender.com/chat"]#对于本项目来说，一定要加上https://learngerman-ai.onrender.com/chat/这个路径。因为fetch函数映射到该路径。否则返回的就不是token而是一个html
 
 
-MY_API_KEY1 = os.environ.get('MY_API_KEY1')
-MY_API_KEY2 = os.environ.get('MY_API_KEY2')
-MY_API_KEY3 = os.environ.get('MY_API_KEY3')
-MY_API_KEY4 = os.environ.get('MY_API_KEY4')
-MY_API_KEY5 = os.environ.get('MY_API_KEY5')
-MY_API_KEY6 = os.environ.get('MY_API_KEY6')
-MY_API_KEY7 = os.environ.get('MY_API_KEY7')
-MY_API_KEY8 = os.environ.get('MY_API_KEY8')
-MY_API_KEY9 = os.environ.get('MY_API_KEY9')
-MY_API_KEY10 = os.environ.get('MY_API_KEY10')
-MY_API_KEY11 = os.environ.get('MY_API_KEY11')
-MY_API_KEY12 = os.environ.get('MY_API_KEY12')
-MY_API_KEY13 = os.environ.get('MY_API_KEY13')
-MY_API_KEY14 = os.environ.get('MY_API_KEY14')
-
-API_KEYS = [MY_API_KEY1,MY_API_KEY2,MY_API_KEY3,MY_API_KEY4,
-            MY_API_KEY5,MY_API_KEY6,MY_API_KEY7,MY_API_KEY8,
-            MY_API_KEY9,MY_API_KEY10,MY_API_KEY11,MY_API_KEY12,
-            MY_API_KEY13,MY_API_KEY14]
-
 #from dotenv import load_dotenv
 #load_dotenv()#开发环境下启用
 API_KEYS = os.environ.get('MY_API_KEYS','').split(',')
