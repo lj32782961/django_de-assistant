@@ -63,7 +63,7 @@ class APIKeyManager:
         self.api_keys = settings.API_KEYS
         self.current_key_index = 0
         self.max_retries = len(self.api_keys)
-        self.model_name = "gemini-1.5-flash"
+        self.model_name = "gemini-2.0-flash"
         self.max_tokens = 10000
         self.temperature = 0.7
         self.chats = {}## 存储每个 session_id 的对话历史
